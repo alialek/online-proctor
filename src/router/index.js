@@ -64,7 +64,6 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (to.matched.some(record => record.meta.is_admin)) {
-        console.log(store.getters.isAdmin);
         if (store.getters.isAdmin) {
           next()
         } else {

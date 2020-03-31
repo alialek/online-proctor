@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from './store'
-import router from './router'
+// import router from './router'
 
 axios.defaults.timeout = 30000
 
@@ -10,23 +10,24 @@ axios.interceptors.request.use(config => {
   let authorized = (token && token.exp > Date.now() / 1000)
 
   if (authorized) {
-    config.headers.common['Authorization'] = 'Bearer ' + store.state.auth.token
+    config.headers.common['x-auth-token'] = store.state.token
   }
 
-  return Promise.resolve(config)
+  return config
 }, error => {
   store.commit('SET_ERROR')
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(data => {
+axios.interceptors.response.use(response => {
   store.commit('LOADING_STOP')
-  return Promise.resolve(data)
+  return response
 }, error => {
   store.commit('SET_ERROR')
   if (error.response && error.response.status && error.response.status === 401) {
-    this.$store.dispatch("logout")
-      .then(() => router.push('/auth'))
+    console.log('401')
+    // store.dispatch("logout")
+    // .then(() => router.push('/auth'))
   }
 
   return Promise.reject(error)

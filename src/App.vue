@@ -1,24 +1,26 @@
 <template>
 	<div id="app">
-		<div class="header" v-if="isLoggedIn">
-			<div class="header__logo">Система онлайн-тестирования</div>
-			<div class="header__user">
-				<!-- <vs-avatar primary>
+		<v-app>
+			<div class="header" v-if="isLoggedIn">
+				<div class="header__logo">Система онлайн-тестирования</div>
+				<div class="header__user">
+					<!-- <vs-avatar primary>
 					<template #text>
 						{{ name[0] }}
 					</template>
 				</vs-avatar> -->
-				<!-- <div>
+					<!-- <div>
 					{{ name }}
 				</div> -->
+				</div>
+				<div class="header__exit">
+					<vs-button danger @click="logout">
+						Выход
+					</vs-button>
+				</div>
 			</div>
-			<div class="header__exit">
-				<vs-button danger @click="logout">
-					Выход
-				</vs-button>
-			</div>
-		</div>
-		<router-view />
+			<router-view />
+		</v-app>
 	</div>
 </template>
 <script>
@@ -39,8 +41,8 @@ export default {
 	},
 	methods: {
 		logout: function() {
-			this.$store.dispatch('logout').then(() => {
-				this.$router.push('/auth');
+			this.$store.dispatch("logout").then(() => {
+				this.$router.push("/auth");
 			});
 		}
 	}
@@ -58,7 +60,7 @@ html {
 	// overflow: hidden;
 }
 .vs-button {
-	font-family: 'Nunito', sans-serif !important;
+	font-family: "Nunito", sans-serif !important;
 	font-weight: bold;
 	font-size: 1rem !important;
 }

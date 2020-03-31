@@ -51,7 +51,7 @@ export default new Vuex.Store({
             if (user.isAdmin) {
               localStorage.setItem("ddl-bg-285015", 1584678841912);
             }
-            axios.defaults.headers.common['Authorization'] = token
+            axios.defaults.headers.common['x-auth-token'] = token
             commit('AUTH_SUCCESS', { token, user })
             resolve(resp)
           })
@@ -70,7 +70,7 @@ export default new Vuex.Store({
             const token = resp.data.token
             const user = resp.data.user
             localStorage.setItem('token', token)
-            axios.defaults.headers.common['Authorization'] = token
+            axios.defaults.headers.common['x-auth-token'] = token
             commit('AUTH_SUCCESS', token, user)
             resolve(resp)
           })
@@ -86,21 +86,22 @@ export default new Vuex.Store({
         commit('LOGOUT')
         localStorage.removeItem('token')
         localStorage.removeItem('ddl-bg-285015')
-        delete axios.defaults.headers.common['Authorization']
+        delete axios.defaults.headers.common['x-auth-token']
         resolve()
       })
     },
     getTests({ commit }) {
       return new Promise((resolve, reject) => {
-        axios({ url: 'https://app.netquest.ru/api/test/', method: 'GET' })
+        axios({ url: 'https://app.netquest.ru/api/test', method: 'GET' })
           .then(resp => {
             console.log(resp)
             commit('SET_TESTS', resp)
             resolve(resp)
           })
           .catch(err => {
-            commit('SET_ERROR', err.response)
-            reject(err.response)
+            console.log(err);
+            commit('SET_ERROR', err)
+            reject(err)
           })
       })
     }
@@ -118,5 +119,6 @@ export default new Vuex.Store({
         return jwtDecode(state.token)
       }
     },
+    token: (state) => state.token
   }
 })

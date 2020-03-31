@@ -1,6 +1,11 @@
 <template>
 	<div>
-		<vs-dialog :loading="loading" v-model="activeDialog">
+		<vs-dialog
+			:loading="loading"
+			v-model="activeDialog"
+			prevent-close
+			not-close
+		>
 			<vs-alert v-model="error">
 				<p>Ошибка!</p>
 				<ul>
@@ -169,7 +174,7 @@ export default {
 				.dispatch("register", user)
 				.then(() => this.$router.push("/dashboard"))
 				.catch(errResp => {
-					this.errors = errResp.data.errors;
+					this.errors = errResp;
 				});
 		}
 	},
@@ -198,9 +203,6 @@ export default {
 </script>
 
 <style lang="scss">
-.vs-dialog__close {
-	display: none !important;
-}
 .not-margin {
 	margin: 0px;
 	font-weight: normal;
