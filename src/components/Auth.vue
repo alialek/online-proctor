@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="main">
 		<vs-dialog
 			:loading="loading"
 			v-model="activeDialog"
@@ -63,6 +63,7 @@
 							type="password"
 							v-model="passwordConf"
 							placeholder="Повторите пароль"
+							Жзк
 						>
 							<template #icon>
 								<i class="bx bxs-lock-alt"></i>
@@ -161,7 +162,7 @@ export default {
 					this.active = false;
 				})
 				.catch(errResp => {
-					this.errors = errResp.data.errors;
+					this.errors = errResp;
 				});
 		},
 		register: function() {

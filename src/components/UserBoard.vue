@@ -1,7 +1,9 @@
 <template>
-	<div class="dashboard wrapper">
-		<div class="tests">
-			<div class="card"></div>
+	<div class="main">
+		<div class="dashboard wrapper">
+			<div class="tests">
+				<div class="card"></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -9,8 +11,7 @@
 <script>
 export default {
 	data() {
-		return {
-		};
+		return {};
 	},
 	mounted() {}
 };

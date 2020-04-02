@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container404">
 		<div class="error404">
 			<span class="error404__icon">404 :(</span>
 			<div class="error404__text">
@@ -53,9 +53,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.container404 {
+	z-index: 999999;
 	font-family: "Segoe UI", sans-serif;
-	width: 100vw;
+	width: 100%;
 	height: 100vh;
 	display: flex;
 	flex-direction: column;

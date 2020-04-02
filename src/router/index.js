@@ -2,8 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Auth from '@/components/Auth'
 import UserBoard from '@/components/UserBoard'
-import Admin from '@/components/Admin'
 import NotFound from '@/components/NotFound'
+import Session from '@/components/Session'
+import Admin from '@/components/Admin'
+import AdminSession from '@/components/AdminSession'
+import AdminPanel from '@/components/AdminPanel'
+
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -36,6 +40,28 @@ const routes = [
     meta: {
       requiresAuth: true,
       is_admin: true
+    },
+    children: [
+      {
+        path: '',
+        name: 'AdminPanel',
+        component: AdminPanel
+
+      },
+      {
+        path: 'session/:id',
+        name: 'AdminSession',
+        component: AdminSession,
+        props: true,
+
+      }]
+  },
+  {
+    path: '/session/:id',
+    name: 'Session',
+    component: Session,
+    meta: {
+      requiresAuth: true,
     }
   },
   {

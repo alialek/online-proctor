@@ -2,9 +2,16 @@ import axios from 'axios'
 import store from './store'
 // import router from './router'
 
-axios.defaults.timeout = 30000
 
-axios.interceptors.request.use(config => {
+const instance = axios.create({
+  baseURL: 'https://app.netquest.ru/api/',
+  timeout: 30000,
+
+})
+
+instance.defaults.timeout = 30000
+
+instance.interceptors.request.use(config => {
   store.commit('LOADING_START')
   let token = store.getters.jwtDecoded || null
   let authorized = (token && token.exp > Date.now() / 1000)
@@ -19,7 +26,7 @@ axios.interceptors.request.use(config => {
   return Promise.reject(error)
 })
 
-axios.interceptors.response.use(response => {
+instance.interceptors.response.use(response => {
   store.commit('LOADING_STOP')
   return response
 }, error => {
@@ -33,4 +40,4 @@ axios.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 
-export default axios
+export default instance

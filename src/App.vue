@@ -1,8 +1,9 @@
 <template>
 	<div id="app">
-		<v-app>
+		<v-app id="test-service">
 			<div class="header" v-if="isLoggedIn">
 				<div class="header__logo">Система онлайн-тестирования</div>
+
 				<div class="header__user">
 					<!-- <vs-avatar primary>
 					<template #text>
@@ -12,6 +13,11 @@
 					<!-- <div>
 					{{ name }}
 				</div> -->
+				</div>
+				<div class="header__admin" v-if="isAdmin">
+					<vs-button size="small" transparent @click="goToAdminPanel"
+						>Панель администратора</vs-button
+					>
 				</div>
 				<div class="header__exit">
 					<vs-button danger @click="logout">
@@ -37,6 +43,9 @@ export default {
 		},
 		email: function() {
 			return this.$store.getters.email;
+		},
+		isAdmin: function() {
+			return this.$store.getters.isAdmin;
 		}
 	},
 	methods: {
@@ -44,21 +53,27 @@ export default {
 			this.$store.dispatch("logout").then(() => {
 				this.$router.push("/auth");
 			});
+		},
+		goToAdminPanel: function() {
+			this.$router.push({ path: "/admin" }).catch(() => {});
 		}
 	}
 };
 </script>
 <style lang="scss">
 html {
-	font-size: 16px;
+	font-size: 20px;
 }
 #app {
 	height: 100%;
-	padding-top: 9vh;
 	width: 100vw;
-	background: linear-gradient(51.79deg, #655af3 -23.83%, #a59bff 92.58%);
-	// overflow: hidden;
 }
+#test-service {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
 .vs-button {
 	font-family: "Nunito", sans-serif !important;
 	font-weight: bold;
@@ -95,7 +110,12 @@ html {
 		flex: 2;
 	}
 }
-
+.main {
+	width: 100%;
+	height: 100%;
+	padding-top: 9vh;
+	background: linear-gradient(51.79deg, #655af3 -23.83%, #a59bff 92.58%);
+}
 .wrapper {
 	width: 80vw;
 	height: 89vh;

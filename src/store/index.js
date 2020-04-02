@@ -11,11 +11,16 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || null,
     user: {},
-    tests: []
+    tests: [],
+    session: {},
+    sessions: []
   },
   mutations: {
-    SET_TESTS(state, payload) {
-      state.tests = payload.tests
+    SET_SESSION(state, payload) {
+      state.session = payload.session
+    },
+    SET_SESSIONS(state, payload) {
+      state.sessions = payload.sessions
     },
     LOADING_START(state) {
       state.status = 'loading'
@@ -90,13 +95,27 @@ export default new Vuex.Store({
         resolve()
       })
     },
-    getTests({ commit }) {
+    // getTests({ commit }) {
+    //   return new Promise((resolve, reject) => {
+    //     axios.get('/test')
+    //       .then(resp => {
+    //         console.log(resp)
+    //         commit('SET_TESTS', resp)
+    //         resolve(resp)
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //         commit('SET_ERROR', err)
+    //         reject(err)
+    //       })
+    //   })
+    // },
+    addSession({ commit }, payload) {
       return new Promise((resolve, reject) => {
-        axios({ url: 'https://app.netquest.ru/api/test', method: 'GET' })
+        axios.post('/test', payload)
           .then(resp => {
-            console.log(resp)
-            commit('SET_TESTS', resp)
-            resolve(resp)
+            commit('SET_SESSION', { session: resp.data })
+            resolve(resp.data)
           })
           .catch(err => {
             console.log(err);
@@ -104,7 +123,21 @@ export default new Vuex.Store({
             reject(err)
           })
       })
-    }
+    },
+    getSessions({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios.get('/test')
+          .then(resp => {
+            commit('SET_SESSIONS', { sessions: resp.data })
+            resolve(resp.data)
+          })
+          .catch(err => {
+            console.log(err);
+            commit('SET_ERROR', err)
+            reject(err)
+          })
+      })
+    },
   },
   getters: {
     isLoggedIn: state => !!state.token,
