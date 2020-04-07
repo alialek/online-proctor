@@ -162,7 +162,7 @@ export default {
 					this.active = false;
 				})
 				.catch(errResp => {
-					this.errors = errResp;
+					this.errors = errResp.response;
 				});
 		},
 		register: function() {
@@ -173,8 +173,12 @@ export default {
 			};
 			this.$store
 				.dispatch("register", user)
-				.then(() => this.$router.push("/dashboard"))
+				.then(resp => {
+					console.log(resp);
+					this.$router.push("/dashboard").catch(err => console.error(err));
+				})
 				.catch(errResp => {
+					console.log(errResp);
 					this.errors = errResp;
 				});
 		}

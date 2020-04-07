@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from './store'
-// import router from './router'
+import router from './router'
 
 
 const instance = axios.create({
@@ -32,9 +32,8 @@ instance.interceptors.response.use(response => {
 }, error => {
   store.commit('SET_ERROR')
   if (error.response && error.response.status && error.response.status === 401) {
-    console.log('401')
-    // store.dispatch("logout")
-    // .then(() => router.push('/auth'))
+    store.dispatch("logout")
+      .then(() => router.push('/auth'))
   }
 
   return Promise.reject(error)

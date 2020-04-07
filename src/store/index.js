@@ -56,6 +56,7 @@ export default new Vuex.Store({
             if (user.isAdmin) {
               localStorage.setItem("ddl-bg-285015", 1584678841912);
             }
+            document.cookie = `token=${token};max-age=2024`
             axios.defaults.headers.common['x-auth-token'] = token
             commit('AUTH_SUCCESS', { token, user })
             resolve(resp)
@@ -72,14 +73,17 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({ url: 'https://app.netquest.ru/api/users', data: user, method: 'POST' })
           .then(resp => {
+            console.log(resp);
             const token = resp.data.token
             const user = resp.data.user
             localStorage.setItem('token', token)
+            document.cookie = `token=${token};max-age=2024`
             axios.defaults.headers.common['x-auth-token'] = token
-            commit('AUTH_SUCCESS', token, user)
+            commit('AUTH_SUCCESS', { token, user })
             resolve(resp)
           })
           .catch(err => {
+            console.log(err);
             commit('SET_ERROR', err.response)
             localStorage.removeItem('token')
             reject(err.response)
@@ -140,7 +144,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    isLoggedIn: state => !!state.token,
+    isLoggedIn: state => state.token !== null,
     authStatus: state => state.status,
     isAdmin: state => state.user.isAdmin ? state.user.isAdmin : localStorage.getItem('ddl-bg-285015') == 1584678841912,
     name: state => state.user.name,
