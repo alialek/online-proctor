@@ -11,7 +11,7 @@
  - Vuesax
  - WebSockets
 
-[Регистрация](https://raw.githubusercontent.com/alialek/online-proctor/master/0.png)
+![Регистрация](https://raw.githubusercontent.com/alialek/online-proctor/master/0.png)
 
 
 ## Получить права администратора
