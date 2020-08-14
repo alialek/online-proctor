@@ -11,6 +11,8 @@
  - Vuesax
  - WebSockets
 
+[Регистрация](https://github.com/alialek/online-proctor/raw/master/1.png)
+
 
 ## Получить права администратора
 Чтобы получить права администратора, необходимо:
