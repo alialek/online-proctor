@@ -11,8 +11,26 @@
  - Vuesax
  - WebSockets
 
+## Скриншоты
+### Роль - гость
 ![Регистрация](https://raw.githubusercontent.com/alialek/online-proctor/master/0.png)
+Страница регистрации
 
+![Ввод идентификатора](https://raw.githubusercontent.com/alialek/online-proctor/master/1.jpg)
+Страница ввода идентификатора для экзаменуемого
+
+![Ожидание](https://raw.githubusercontent.com/alialek/online-proctor/master/2.jpg)
+Ожидание начала сессии
+
+### Роль - администратор
+![Создание сессии](https://raw.githubusercontent.com/alialek/online-proctor/master/3.jpg)
+Модальное окно создания сессии
+
+![Отправка вопроса](https://raw.githubusercontent.com/alialek/online-proctor/master/4.jpg)
+Окно одностороннего чата - отправка вопроса и блокировка поля ввода на время ответа
+
+![Ожидание](https://raw.githubusercontent.com/alialek/online-proctor/master/6.jpg)
+Просмотр результатов тестирования
 
 ## Получить права администратора
 Чтобы получить права администратора, необходимо:
